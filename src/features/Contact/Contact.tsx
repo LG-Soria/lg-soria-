@@ -234,7 +234,7 @@ export default function Contact() {
         <div className="flex items-start justify-start">
           <TitleLink
             label="CURRICULUM"
-            href="/Currículum Vitae Lucas G Soria.pdf"
+            href="/Lucas_Soria_CV.pdf"
             download
             align="left"
             lineWidth="w-[min(100%,32rem)]"
