@@ -32,18 +32,18 @@ export function BannerMarquee({
   bgClass?: string;
   colorClass?: string;
 }) {
-const ribbon = useMemo(() => {
-  const parts = [];
-  for (let i = 0; i < 12; i++) {
-    parts.push(
-      <span key={`t-${i}`}>{text}</span>,
-      <span key={`s-${i}`} className="px-2 bg-gradient-to-b from-[#0075FF]  to-[#0044CC] text-transparent bg-clip-text">
-        {separator}
-      </span>
-    );
-  }
-  return parts;
-}, [text, separator]);
+  const ribbon = useMemo(() => {
+    const parts = [];
+    for (let i = 0; i < 12; i++) {
+      parts.push(
+        <span key={`t-${i}`}>{text}</span>,
+        <span key={`s-${i}`} className="px-2 bg-gradient-to-b from-[#0075FF]  to-[#0044CC] text-transparent bg-clip-text">
+          {separator}
+        </span>
+      );
+    }
+    return parts;
+  }, [text, separator]);
 
   // Con w-max y bloques shrink-0 se evita que el contenido se comprima; duplicar el contenido permite un loop perfecto.
   const xFrom = direction === "left" ? "0%" : "-50%";
@@ -51,7 +51,7 @@ const ribbon = useMemo(() => {
 
   return (
     <div
-    id="contacto"
+      id="contacto"
       className={clsx(
         "relative w-full overflow-hidden select-none",
         bgClass,
@@ -215,7 +215,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="mx-auto flex min-h-[80vh] max-w-6xl flex-col items-center gap-10 bg-black  pb-16 border-x"
+      className="mx-auto flex min-h-[80vh]  flex-col items-center gap-10 bg-black  pb-16 border-x"
     >
       <BannerMarquee
         text="CONTACTO"
@@ -229,7 +229,7 @@ export default function Contact() {
       />
 
       {/* Grid dos columnas */}
-      <div className="grid w-full grid-cols-1 gap-14 md:grid-cols-2 md:gap-16 px-4">
+      <div className="grid w-full grid-cols-1 gap-14 md:grid-cols-2 md:gap-16 px-4 max-w-6xl">
         {/* Izquierda: CURRICULUM con flecha a la derecha y crecimiento de línea */}
         <div className="flex items-start justify-start">
           <TitleLink

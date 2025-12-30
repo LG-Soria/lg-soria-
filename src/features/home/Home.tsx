@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <section
       id="inicio"
-      className="relative z-20 mx-auto min-h-screen max-w-6xl overflow-hidden border border-b-0 px-4 py-16"
+      className="relative z-20 mx-auto min-h-screen max-w-6xl overflow-hidden px-4 py-16"
     >
       {/* Contenido en su propio stack */}
       <div className="flex min-h-[60vh] flex-col items-center justify-center space-y-10">

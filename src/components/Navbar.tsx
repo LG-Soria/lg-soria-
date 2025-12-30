@@ -19,6 +19,7 @@ export default function Navbar({
   items = [
     { label: "Inicio", href: "#inicio" },
     { label: "Skills", href: "#skills" },
+    { label: "Proyectos", href: "#proyectos" },
   ],
   showContact = true,
   contactHref = "#contacto",
@@ -119,87 +120,87 @@ export default function Navbar({
   const borderScale = 1 - borderProgress; // 1 → completo, 0 → desaparecido
   const borderOpacity = borderScale; // opacidad vinculada a la escala
 
-return (
-  <header
-    ref={headerRef}
-    className={[
-      "sticky top-0 z-50 border-b border-transparent transition-shadow duration-300",
-      isScrolled
-        ? "bg-neutral-900/60 shadow-[0_2px_8px_rgba(0,0,0,0.15)] supports-[backdrop-filter]:backdrop-blur"
-        : "bg-transparent shadow-none",
-    ].join(" ")}
-  >
-    {/* Borde animado: blanco, se contrae hacia el centro y desvanece */}
-    <span
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white"
-      style={{
-        opacity: borderOpacity,
-        transform: `scaleX(${borderScale})`,
-        transformOrigin: "50% 50%",
-        transition: "opacity 200ms linear, transform 200ms linear",
-      }}
-    />
+  return (
+    <header
+      ref={headerRef}
+      className={[
+        "sticky top-0 z-50 border-b border-transparent transition-shadow duration-300",
+        isScrolled
+          ? "bg-neutral-900/60 shadow-[0_2px_8px_rgba(0,0,0,0.15)] supports-[backdrop-filter]:backdrop-blur"
+          : "bg-transparent shadow-none",
+      ].join(" ")}
+    >
+      {/* Borde animado: blanco, se contrae hacia el centro y desvanece */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white"
+        style={{
+          opacity: borderOpacity,
+          transform: `scaleX(${borderScale})`,
+          transformOrigin: "50% 50%",
+          transition: "opacity 200ms linear, transform 200ms linear",
+        }}
+      />
 
-    <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-      {/* Logo con cross-fade pro */}
-      <div className="relative h-8 w-28">
-        <AnimatePresence mode="wait" initial={false}>
-          {!isScrolled ? (
-            <motion.img
-              key="logo1"
-              src="/logo.svg"
-              alt={title}
-              className="absolute inset-0 h-8 w-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          ) : (
-            <motion.img
-              key="logo2"
-              src="/logo2.svg"
-              alt={title}
-              className="absolute inset-0 h-8 w-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          )}
-        </AnimatePresence>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        {/* Logo con cross-fade pro */}
+        <div className="relative h-8 w-28">
+          <AnimatePresence mode="wait" initial={false}>
+            {!isScrolled ? (
+              <motion.img
+                key="logo1"
+                src="/logo.svg"
+                alt={title}
+                className="absolute inset-0 h-8 w-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            ) : (
+              <motion.img
+                key="logo2"
+                src="/logo2.svg"
+                alt={title}
+                className="absolute inset-0 h-8 w-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            )}
+          </AnimatePresence>
+        </div>
+
+        <nav aria-label="Primary">
+          <ul className="flex items-center gap-6">
+            {navItems.map((item, i) => {
+              const id = item.href?.startsWith("#") ? item.href.slice(1) : "";
+              const isActive = id && activeId === id;
+
+              return (
+                <li key={`${item.label}-${i}`}>
+                  <a
+                    href={item.href ?? "#"}
+                    aria-current={isActive ? "page" : undefined}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={[
+                      "relative cursor-pointer transition-colors",
+                      "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-[#0075FF] after:transition-all after:duration-300",
+                      isActive
+                        ? "text-white after:w-full"
+                        : "after:w-0 hover:text-white/90 hover:after:w-full",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
-
-      <nav aria-label="Primary">
-        <ul className="flex items-center gap-6">
-          {navItems.map((item, i) => {
-            const id = item.href?.startsWith("#") ? item.href.slice(1) : "";
-            const isActive = id && activeId === id;
-
-            return (
-              <li key={`${item.label}-${i}`}>
-                <a
-                  href={item.href ?? "#"}
-                  aria-current={isActive ? "page" : undefined}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={[
-                    "relative cursor-pointer transition-colors",
-                    "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-[#0075FF] after:transition-all after:duration-300",
-                    isActive
-                      ? "text-white after:w-full"
-                      : "after:w-0 hover:text-white/90 hover:after:w-full",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </div>
-  </header>
-);
+    </header>
+  );
 
 }

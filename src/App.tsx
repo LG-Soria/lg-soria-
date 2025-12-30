@@ -1,22 +1,23 @@
-import Navbar from "./components/Navbar";
-import Button from "./components/ui/Button";
-import Contact from "./features/Contact/Contact";
-import Footer from "./features/Footer/Footer";
-import Home from "./features/home/Home";
-import Skills from "./features/skills/Skills";
+import Navbar from "@/components/Navbar";
+import Home from "@/features/home/Home";
+import SkillsTimeline from "@/features/skills/SkillsTimeline";
+import ProjectsSection from "@/features/projects/ProjectsSection";
+import Contact from "@/features/Contact/Contact";
+import Footer from "@/features/Footer/Footer";
 
-export default function App() {
-  return (
-    <div className="min-h-fit bg-neutral-950 text-neutral-100">
-      <Navbar />
-
-      <main className="mx-auto max-w-6xl px-4 pt-10">
-        {/* Comenzar a maquetar tu primera sección */}
-        <Home />
-        <Skills />
-        <Contact />
-        <Footer />
-      </main>
-    </div>
-  );
+function App() {
+    return (
+        <div className="relative bg-black min-h-screen w-full overflow-x-hidden selection:bg-[#0075FF]/30 text-white">
+            <Navbar />
+            <main className="flex flex-col w-full">
+                <Home />
+                <SkillsTimeline />
+                <ProjectsSection />
+                <Contact />
+            </main>
+            <Footer />
+        </div>
+    );
 }
+
+export default App;
