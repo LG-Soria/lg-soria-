@@ -23,7 +23,7 @@ export default function Navbar({
   ],
   showContact = true,
   contactHref = "#contacto",
-  offset = 40,
+  offset = 0,
 }: NavbarProps) {
   const [activeId, setActiveId] = useState<string>("");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,11 +108,8 @@ export default function Navbar({
 
     const headerH = headerRef.current?.offsetHeight ?? 0;
 
-    // 👇 offset especial para "skills"
-    const extraOffset = id === "skills" ? -300 : offset;
-
     const top =
-      el.getBoundingClientRect().top + window.scrollY - (headerH + extraOffset);
+      el.getBoundingClientRect().top + window.scrollY - (headerH + offset);
 
     window.scrollTo({ top, behavior: "smooth" });
   };
