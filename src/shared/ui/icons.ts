@@ -11,7 +11,8 @@ export {
     LuCode,
     LuDatabase,
     LuGlobe,
-    LuWrench
+    LuWrench,
+    LuServer
 } from "react-icons/lu";
 
 // Font Awesome 6
