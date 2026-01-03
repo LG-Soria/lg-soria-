@@ -28,8 +28,9 @@ export const DotCursor = () => {
         const handleMouseMove = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
             const clickable = target.closest('a, button, [role="button"]');
+            const isMobile = window.innerWidth < 768;
 
-            if (clickable && (cursorType !== 'inversion' || isOverNavbar)) {
+            if (clickable && (cursorType !== 'inversion' || isOverNavbar) && !isMobile) {
                 setOverClickable(true);
                 setActiveLabel(getLabel(clickable as HTMLElement));
             } else {

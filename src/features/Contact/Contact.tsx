@@ -16,7 +16,7 @@ export default function Contact() {
       ref={sectionRef}
       id="contacto"
       data-cursor="dot"
-      className="flex min-h-[80vh] overflow-visible flex-col items-center gap-10 relative
+      className="flex min-h-[80vh] overflow-visible flex-col gap-10 relative
         pb-16 border-x"
     >
       <BackgroundEffect sectionRef={sectionRef} />
@@ -25,14 +25,14 @@ export default function Contact() {
         separator="•"
         speed={60}
         direction="left"
-        heightClass="h-36 z-50"
+        heightClass="h-36 z-40"
         textClass="text-6xl md:text-7xl lg:text-8xl"
         bgClass="bg-white"
         colorClass="text-black"
       />
 
-      {/* Grid dos columnas */}
-      <div className="grid w-full grid-cols-1 mx-32 mt-16  gap-14 md:grid-cols-2 md:gap-16 px-16 ">
+      {/* Grid dos columnas - En desktop ocupa más ancho para estar en los laterales */}
+      <div className="grid w-full grid-cols-1 mt-16 gap-14 md:grid-cols-2 md:gap-16 px-6 md:px-20 lg:px-32 xl:px-40">
         {/* Izquierda: CURRICULUM con flecha a la derecha y crecimiento de línea */}
         <div className="flex items-start justify-start">
           <TitleLink

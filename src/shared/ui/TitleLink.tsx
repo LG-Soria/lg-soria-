@@ -87,7 +87,7 @@ export function TitleLink({
                 <span
                     className={clsx(
                         "font-semibold tracking-wide",
-                        "text-4xl md:text-5xl lg:text-7xl",
+                        "text-3xl md:text-5xl lg:text-7xl",
                     )}
                 >
                     {label}
@@ -96,10 +96,10 @@ export function TitleLink({
             </span>
 
             {/* Subrayado bajo el texto */}
-            <span className={clsx("relative mt-2 block", lineWidth)}>
+            <span className={clsx("relative mt-1 block", lineWidth)}>
                 <span
                     className={clsx(
-                        "absolute -bottom-1 left-0 block h-[3px] w-full",
+                        "absolute -bottom-3 left-0 block h-[2px] md:h-[3px] w-full",
                         colorLine,
                         origin,
                         baseScale,
@@ -107,7 +107,6 @@ export function TitleLink({
                         "transition-transform duration-300 ease-out",
                     )}
                 />
-                <span className="invisible">_</span>
             </span>
         </a>
     );

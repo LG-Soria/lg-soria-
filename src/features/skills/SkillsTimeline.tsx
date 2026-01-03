@@ -112,7 +112,7 @@ export default function SkillsTimeline() {
                 }}
             >
                 {/* Spacer */}
-                <div className="shrink-0 w-[calc(50vw-200px)] md:w-[calc(50vw-250px)]" />
+                <div className="shrink-0 w-[calc(50vw-170px)] md:w-[calc(50vw-225px)]" />
 
                 {skillsData.map((skill, index) => (
                     <SkillCard
@@ -125,7 +125,7 @@ export default function SkillsTimeline() {
                 ))}
 
                 {/* Spacer */}
-                <div className="shrink-0 w-[calc(50vw-200px)] md:w-[calc(50vw-250px)]" />
+                <div className="shrink-0 w-[calc(50vw-170px)] md:w-[calc(50vw-225px)]" />
             </div>
 
             {/* Navigation Dots */}

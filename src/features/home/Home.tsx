@@ -18,9 +18,9 @@ export default function Home() {
       className="relative cursor-none z-20 mx-auto min-h-screen w-full overflow-hidden px-4 py-16"
     >
       {/* Contenido en su propio stack */}
-      <div className="flex min-h-[60vh] flex-col max-w-6xl mx-auto items-center justify-center space-y-10">
-        <h1 className="text-9xl font-bold tracking-tight">LG-SORIA</h1>
-        <p className="max-w-prose text-6xl text-white/70">Web Developer</p>
+      <div className="flex min-h-[60vh] flex-col max-w-6xl mx-auto items-center justify-center space-y-6 md:space-y-10 text-center px-4">
+        <h1 className="text-6xl md:text-9xl font-bold tracking-tight">LG-SORIA</h1>
+        <p className="max-w-prose text-2xl md:text-6xl text-white/70">Web Developer</p>
         <Button variant="ghost" withIcon="hover" onClick={handleConnectClick}>
           Conectar
         </Button>

@@ -1,0 +1,220 @@
+/* StretchyNavigation.css */
+
+.stretchy-nav-root {
+    --nav-size: 44px;
+    --bg-color: #000000;
+    --accent-color: #0075FF;
+    --text-color: #FFFFFF;
+    --transition-speed: 0.4s;
+
+    position: relative;
+    z-index: 100;
+    width: var(--nav-size);
+    height: var(--nav-size);
+}
+
+/* Background that stretches */
+.stretchy-nav-bg {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    width: var(--nav-size);
+    height: var(--nav-size);
+    border-radius: calc(var(--nav-size) / 2);
+    background: var(--bg-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* El fondo espera a que los items desaparezcan antes de contraerse */
+    transition: height var(--transition-speed) cubic-bezier(0.86, 0, 0.07, 1) 0.15s,
+        box-shadow var(--transition-speed) 0.15s;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-bg {
+    transition-delay: 0s;
+    /* Se expande inmediatamente al abrir */
+    height: 220px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Trigger button */
+.stretchy-nav-trigger {
+    position: relative;
+    z-index: 3;
+    display: block;
+    width: var(--nav-size);
+    height: var(--nav-size);
+    background: transparent;
+    border: none;
+    cursor: none;
+    padding: 0;
+}
+
+.stretchy-nav-trigger span,
+.stretchy-nav-trigger span::after,
+.stretchy-nav-trigger span::before {
+    /* Hamburger icon lines */
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: transform 0.3s;
+}
+
+.stretchy-nav-trigger span {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.stretchy-nav-trigger span::after,
+.stretchy-nav-trigger span::before {
+    content: '';
+    left: 0;
+}
+
+.stretchy-nav-trigger span::before {
+    top: -6px;
+}
+
+.stretchy-nav-trigger span::after {
+    top: 6px;
+}
+
+/* Trigger open state (X icon) */
+.stretchy-nav-root.is-open .stretchy-nav-trigger span {
+    background-color: transparent;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-trigger span::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-trigger span::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+.stretchy-nav-items {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    visibility: hidden;
+    /* Se oculta rápido al cerrar para que no queden items volando */
+    transition: visibility 0s 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: -6px;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-items {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.stretchy-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+}
+
+/* Icons and Labels */
+.stretchy-nav-item .icon {
+    font-size: 1.3rem;
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+.stretchy-nav-item .label {
+    position: absolute;
+    right: 50px;
+    /* A la izquierda del icono */
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.15s, transform 0.15s, background-color 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Estado activo con desenfoque solicitado */
+.stretchy-nav-item.active .label {
+    color: var(--accent-color);
+    background: rgba(0, 117, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 117, 255, 0.2);
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-item .label {
+    opacity: 0.8;
+    transform: translateX(0);
+    transition-delay: 0.25s;
+    /* Aparece después de que el fondo se estira */
+}
+
+/* Al estar abierto, elevamos la opacidad del ítem activo o hover */
+.stretchy-nav-root.is-open .stretchy-nav-item.active .label,
+.stretchy-nav-root.is-open .stretchy-nav-item:hover .label {
+    opacity: 1;
+}
+
+/* Active and Hover states - Icons */
+.stretchy-nav-root.is-open .stretchy-nav-item:hover .icon,
+.stretchy-nav-root.is-open .stretchy-nav-item.active .icon {
+    opacity: 1;
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Animations when opening - Icons */
+.stretchy-nav-item .icon {
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.15s, opacity 0.15s, color 0.3s;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-item .icon {
+    transform: scale(1);
+    opacity: 0.7;
+}
+
+@keyframes stretchyScaleIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Desplazamiento escalonado al abrir */
+.stretchy-nav-root.is-open .stretchy-nav-item:nth-child(1) .icon {
+    transition-delay: 0.15s;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-item:nth-child(2) .icon {
+    transition-delay: 0.20s;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-item:nth-child(3) .icon {
+    transition-delay: 0.25s;
+}
+
+.stretchy-nav-root.is-open .stretchy-nav-item:nth-child(4) .icon {
+    transition-delay: 0.30s;
+}

@@ -8,8 +8,8 @@ export const skillsData: SkillCategory[] = [
         description: 'Desarrollo de interfaces modernas, responsivas y accesibles con ecosistemas React de última generación.',
         icon: LuCode,
         tech: [
-            'JavaScript', 'TypeScript', 'React.js', 'Next.js', 'TailwindCSS',
-            'Zustand', 'React Query', 'Framer Motion'
+            'JavaScript', 'TypeScript', 'React.js', 'Next.js', 'Vite', 'TailwindCSS',
+            'Zustand', 'React Query', 'Framer Motion',
         ],
         highlights: [
             'Componentes reutilizables y hooks personalizados',
@@ -24,8 +24,7 @@ export const skillsData: SkillCategory[] = [
         description: 'Construcción de APIs escalables y microservicios que manejan alta concurrencia y lógica compleja.',
         icon: LuDatabase,
         tech: [
-            'Node.js', 'Express', 'PostgreSQL', 'MongoDB',
-            'Redis', 'Docker', 'NGINX', 'JWT'
+            'Node.js', 'Express', 'Nest.js', 'PostgreSQL', 'MongoDB', 'Docker', 'NGINX', 'JWT'
         ],
         highlights: [
             'Diseño de APIs RESTful y escalables',

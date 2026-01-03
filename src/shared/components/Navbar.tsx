@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGlobalMouse } from "@/shared/context/MouseContext";
+import StretchyNavigation from "./StretchyNavigation/StretchyNavigation";
 
 type NavItem = { label: string; href?: string };
 
@@ -124,9 +125,9 @@ export default function Navbar({
       onMouseEnter={() => setIsOverNavbar(true)}
       onMouseLeave={() => setIsOverNavbar(false)}
       className={[
-        "fixed top-0 left-0 right-0 z-50 border-b border-transparent cursor-none transition-shadow duration-300",
+        "fixed top-0 left-0 right-0 z-50 border-b border-transparent cursor-none transition-all duration-300",
         isScrolled
-          ? "bg-black/95 shadow-[0_2px_8px_rgba(0,0,0,0.3)] supports-[backdrop-filter]:backdrop-blur"
+          ? "bg-black shadow-[0_2px_8px_rgba(0,0,0,0.3)] supports-[backdrop-filter]:backdrop-blur"
           : "bg-transparent shadow-none",
       ].join(" ")}
     >
@@ -172,7 +173,7 @@ export default function Navbar({
           </AnimatePresence>
         </div>
 
-        <nav aria-label="Primary">
+        <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-6">
             {navItems.map((item, i) => {
               const id = item.href?.startsWith("#") ? item.href.slice(1) : "";
@@ -199,6 +200,14 @@ export default function Navbar({
             })}
           </ul>
         </nav>
+
+        <div className="md:hidden">
+          <StretchyNavigation
+            items={navItems}
+            activeId={activeId}
+            onItemClick={handleNavClick}
+          />
+        </div>
       </div>
     </header>
   );
