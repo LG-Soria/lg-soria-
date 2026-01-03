@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { LuArrowDown } from "react-icons/lu";
+import { LuArrowDown } from "./icons";
 
 type ScrollHintProps = {
   appearAfterMs?: number;     // ms de inactividad antes de mostrar

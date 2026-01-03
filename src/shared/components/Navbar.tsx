@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
-
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useGlobalMouse } from "@/shared/context/MouseContext";
 
 type NavItem = { label: string; href?: string };
 
@@ -29,6 +29,7 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [borderProgress, setBorderProgress] = useState(0); // 0 = borde completo, 1 = desaparecido
   const headerRef = useRef<HTMLElement | null>(null);
+  const { setIsOverNavbar } = useGlobalMouse();
 
   // Lista final de ítems (se agrega "Contacto" si corresponde y no está duplicado)
   const navItems = useMemo(() => {
@@ -57,7 +58,7 @@ export default function Navbar({
 
     const onScroll = () => {
       const y = window.scrollY || 0;
-      setIsScrolled(y > 10);
+      setIsScrolled(y > 5);
       const p = Math.min(Math.max(y / MAX, 0), 1);
       setBorderProgress(p);
     };
@@ -123,10 +124,12 @@ export default function Navbar({
   return (
     <header
       ref={headerRef}
+      onMouseEnter={() => setIsOverNavbar(true)}
+      onMouseLeave={() => setIsOverNavbar(false)}
       className={[
-        "sticky top-0 z-50 border-b border-transparent transition-shadow duration-300",
+        "fixed top-0 left-0 right-0 z-50 border-b border-transparent cursor-none transition-shadow duration-300",
         isScrolled
-          ? "bg-neutral-900/60 shadow-[0_2px_8px_rgba(0,0,0,0.15)] supports-[backdrop-filter]:backdrop-blur"
+          ? "bg-black/95 shadow-[0_2px_8px_rgba(0,0,0,0.3)] supports-[backdrop-filter]:backdrop-blur"
           : "bg-transparent shadow-none",
       ].join(" ")}
     >
@@ -185,7 +188,7 @@ export default function Navbar({
                     aria-current={isActive ? "page" : undefined}
                     onClick={(e) => handleNavClick(e, item.href)}
                     className={[
-                      "relative cursor-pointer transition-colors",
+                      "relative cursor-none transition-colors",
                       "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-[#0075FF] after:transition-all after:duration-300",
                       isActive
                         ? "text-white after:w-full"

@@ -1,7 +1,8 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
-import { Project } from "./projectsData";
+import { motion } from "framer-motion";
+import { FiArrowRight } from "@/shared/ui/icons";
+import { Project } from "@/shared/types";
+import { useProjectAnimation } from "./hooks/useProjectAnimation";
 
 interface ProjectItemProps {
     project: Project;
@@ -10,19 +11,7 @@ interface ProjectItemProps {
 
 export default function ProjectItem({ project, index }: ProjectItemProps) {
     const ref = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: parallaxProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    });
-    const yParallax = useTransform(parallaxProgress, [0, 1], ["-10%", "10%"]);
-
-    const { scrollYProgress: entryProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "center center"],
-    });
-
-    const opacity = useTransform(entryProgress, [0, 0.5], [0, 1]);
-    const y = useTransform(entryProgress, [0, 1], [100, 0]);
+    const { yParallax, opacity, y } = useProjectAnimation(ref);
 
     return (
         <motion.div

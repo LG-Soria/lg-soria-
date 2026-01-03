@@ -1,10 +1,10 @@
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope } from "../ui/icons";
 
 export default function Footer() {
   return (
     <footer className="w-full bg-neutral-900 text-neutral-300 py-8 border">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        
+
         {/* Logo / Nombre */}
         <div className="text-sm font-medium tracking-wide">
           © {new Date().getFullYear()} Lucas Soria
@@ -17,7 +17,7 @@ export default function Footer() {
             aria-label="Email"
             className="transition-colors"
           >
-            <FaEnvelope className="transition-colors duration-300 hover:text-[#0075FF]"  />
+            <FaEnvelope className="transition-colors duration-300 hover:text-[#0075FF]" />
           </a>
           <a
             href="https://github.com/LG-Soria"
@@ -26,7 +26,7 @@ export default function Footer() {
             aria-label="Github"
             className="transition-colors"
           >
-            <FaGithub className="transition-colors duration-300 hover:text-[#0075FF]"  />
+            <FaGithub className="transition-colors duration-300 hover:text-[#0075FF]" />
           </a>
           <a
             href="https://www.linkedin.com/in/lucas-soria-g/"
@@ -35,7 +35,7 @@ export default function Footer() {
             aria-label="LinkedIn"
             className="transition-colors"
           >
-     <FaLinkedin className="transition-colors duration-300 hover:text-[#0075FF]" />
+            <FaLinkedin className="transition-colors duration-300 hover:text-[#0075FF]" />
           </a>
         </div>
       </div>

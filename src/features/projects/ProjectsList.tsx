@@ -1,4 +1,4 @@
-import { projects } from "./projectsData";
+import { projects } from "./model/data";
 import ProjectItem from "./ProjectItem";
 
 export default function ProjectsList() {

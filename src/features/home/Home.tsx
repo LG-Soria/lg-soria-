@@ -1,7 +1,8 @@
-import Button from "@/components/ui/Button";
-import ScrollHint from "@/components/ui/ScrollHint";
+import Button from "@/shared/ui/Button";
+import ScrollHint from "@/shared/ui/ScrollHint";
 
 export default function Home() {
+
   const handleConnectClick = () => {
     window.open(
       "https://www.linkedin.com/in/lucas-soria-g",
@@ -9,13 +10,15 @@ export default function Home() {
       "noopener,noreferrer",
     );
   };
+
   return (
     <section
       id="inicio"
-      className="relative z-20 mx-auto min-h-screen max-w-6xl overflow-hidden px-4 py-16"
+      data-cursor="inversion"
+      className="relative cursor-none z-20 mx-auto min-h-screen w-full overflow-hidden px-4 py-16"
     >
       {/* Contenido en su propio stack */}
-      <div className="flex min-h-[60vh] flex-col items-center justify-center space-y-10">
+      <div className="flex min-h-[60vh] flex-col max-w-6xl mx-auto items-center justify-center space-y-10">
         <h1 className="text-9xl font-bold tracking-tight">LG-SORIA</h1>
         <p className="max-w-prose text-6xl text-white/70">Web Developer</p>
         <Button variant="ghost" withIcon="hover" onClick={handleConnectClick}>

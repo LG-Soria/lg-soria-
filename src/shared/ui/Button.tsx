@@ -1,6 +1,6 @@
 // Button.tsx
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
-import { FaLinkedinIn } from "react-icons/fa6";
+import { FaLinkedinIn } from "./icons";
 
 type WithIconMode = "none" | "hover" | "visible";
 type IconEffect = "fadeScale" | "slideIn";
@@ -113,7 +113,7 @@ export default function Button({
     <span
       className={[
         effect.sideSlotBase,
-        isVisible ? "w-0": "hover:w-2",
+        isVisible ? "w-0" : "hover:w-2",
       ].join(" ")}
       aria-hidden="true"
     />
