@@ -8,7 +8,7 @@ export default function ProjectsSection() {
         <section
             id="proyectos"
             data-cursor="inversion"
-            className="relative w-full overflow-hidden cursor-none px-6 py-16 md:px-0 md:py-32 snap-y snap-mandatory scroll-py-8 box-border"
+            className="relative w-full overflow-hidden cursor-none px-16   py-16 md:px-32 md:py-32 snap-y snap-mandatory scroll-py-8 box-border"
         >
 
             <div className="relative mb-16 md:mb-24 text-center">
