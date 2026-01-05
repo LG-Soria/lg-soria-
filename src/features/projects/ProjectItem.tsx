@@ -86,7 +86,7 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
                     transition={{ duration: 0.5, delay: 0.5 }}
                     href={project.link}
                     target="_blank"
-                    className="group inline-flex items-center gap-2 text-base font-semibold text-white"
+                    className="group inline-flex items-center gap-2 text-base font-semibold text-white cursor-none"
                 >
                     <span className="relative">
                         Ver Proyecto

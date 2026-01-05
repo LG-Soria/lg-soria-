@@ -19,7 +19,7 @@ const LAYOUT = {
   base:
     "group inline-flex items-center  whitespace-nowrap " +
     "rounded-xl text-sm font-medium transition-all duration-300 ease-out " +
-    "relative cursor-pointer hover:cursor-pointer",
+    "relative ",
   paddingBase: "px-4 py-2",
   // si no querés variar padding, quita esta línea del join final
   paddingHover: "hover:px-2",

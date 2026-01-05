@@ -1,4 +1,4 @@
-import { motion, useSpring, useMotionValue, AnimatePresence, useVelocity, useTransform } from 'framer-motion';
+import { motion, useSpring, useMotionValue, AnimatePresence, useVelocity, useTransform, animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useGlobalMouse } from '@/shared/context/MouseContext';
 
@@ -55,13 +55,11 @@ export const InversionCursor = () => {
     );
 
     useEffect(() => {
-        if (isPressed) {
-            interactionScale.set(0.8);
-        } else if (overClickable) {
-            interactionScale.set(1.4);
-        } else {
-            interactionScale.set(1);
-        }
+        const targetValue = isPressed ? 0.8 : overClickable ? 1.4 : 1;
+        animate(interactionScale, targetValue, {
+            duration: 0.3,
+            ease: [0.23, 1, 0.32, 1] // Custom ease for snappier but smooth feel
+        });
     }, [isPressed, overClickable, interactionScale]);
 
     useEffect(() => {
@@ -98,6 +96,8 @@ export const InversionCursor = () => {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{
                         opacity: 1,
+                        width: overClickable ? '6rem' : '8rem', // w-24 : w-32
+                        height: overClickable ? '6rem' : '8rem', // h-24 : h-32
                         boxShadow: overClickable
                             ? '0 0 20px rgba(14, 165, 233, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.4)'
                             : '0 0 0px rgba(0,0,0,0)',
@@ -106,9 +106,11 @@ export const InversionCursor = () => {
                     exit={{ scale: 0, opacity: 0 }}
                     transition={{
                         opacity: { duration: 0.2 },
-                        backdropFilter: { duration: 0.4, ease: "easeInOut" }
+                        backdropFilter: { duration: 0.4, ease: "easeInOut" },
+                        width: { duration: 0.3, ease: "easeOut" },
+                        height: { duration: 0.3, ease: "easeOut" }
                     }}
-                    className={`fixed top-0 left-0 ${overClickable ? 'w-24 h-24' : 'w-32 h-32'} bg-white rounded-full pointer-events-none mix-blend-difference z-[9999] flex items-center justify-center border-2 border-transparent transition-colors duration-300`}
+                    className="fixed top-0 left-0 bg-white rounded-full pointer-events-none mix-blend-difference z-[9999] flex items-center justify-center border-2 border-transparent transition-colors duration-300"
                     style={{
                         x: cursorX,
                         y: cursorY,

@@ -21,7 +21,7 @@ export default function Home() {
       <div className="flex min-h-[60vh] flex-col max-w-6xl mx-auto items-center justify-center space-y-6 md:space-y-10 text-center px-4">
         <h1 className="text-6xl md:text-9xl font-bold tracking-tight">LG-SORIA</h1>
         <p className="max-w-prose text-2xl md:text-6xl text-white/70">Web Developer</p>
-        <Button variant="ghost" withIcon="hover" onClick={handleConnectClick}>
+        <Button variant="ghost" withIcon="hover" onClick={handleConnectClick} className="cursor-none">
           Conectar
         </Button>
       </div>
