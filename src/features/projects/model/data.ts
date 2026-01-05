@@ -31,6 +31,6 @@ export const projects: Project[] = [
         description: "Tienda Personalizada para emprendimiento artenasal con diseño enfocado en fidelidad de marca.",
         image: "/proyectos/proyecto_1.png",
         stack: ["Next.js", "TailwindCSS", "Framer Motion"],
-        link: "#"
+        link: "https://locaspuntadas-ecommerce.vercel.app/"
     }
 ];
