@@ -3,7 +3,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { FaLinkedinIn } from "./icons";
 
 type WithIconMode = "none" | "hover" | "visible";
-type IconEffect = "fadeScale" | "slideIn";
+type IconEffect = "fadeScale" | "slideIn" | "jump";
 type IconPosition = "left" | "right";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -13,6 +13,8 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: ReactNode;               // componente de ícono (default LinkedIn)
   iconPosition?: IconPosition;    // lado del ícono
   iconSizeRem?: number;           // tamaño icono en rem (default 1)
+  hoverScale?: boolean;           // si escala al hacer hover
+  glow?: boolean;                // efecto de brillo azul
 };
 
 const LAYOUT = {
@@ -64,6 +66,14 @@ const EFFECTS: Record<
     iconOn: "opacity-100 translate-x-0",
     iconOnHover: "group-hover:opacity-100 group-hover:translate-x-0",
   },
+  jump: {
+    sideSlotBase: "w-7 shrink-0 overflow-hidden transition-all duration-300",
+    sideSlotOn: "w-7",
+    sideSlotOnHover: "w-7",
+    iconBase: "transition-all duration-300 ease-out",
+    iconOn: "group-hover:-translate-y-1.5",
+    iconOnHover: "group-hover:-translate-y-1.5",
+  },
 };
 
 export default function Button({
@@ -73,6 +83,8 @@ export default function Button({
   icon = <FaLinkedinIn aria-hidden="true" />,
   iconPosition = "right",
   iconSizeRem = 1,
+  hoverScale = false,
+  glow = false,
   className = "",
   children,
   ...props
@@ -126,6 +138,8 @@ export default function Button({
         LAYOUT.paddingBase,
         hasIcon ? LAYOUT.paddingHover : "",
         variantCls,
+        hoverScale ? "hover:scale-105 active:scale-95" : "",
+        glow ? "hover:shadow-[0_0_20px_rgba(0,117,255,0.6)] hover:border-[#0075FF]/60 hover:animate-pulse transition-all duration-500" : "",
         className,
       ].join(" ")}
       {...props}
