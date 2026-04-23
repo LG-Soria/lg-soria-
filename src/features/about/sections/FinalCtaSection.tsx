@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import { motion, useReducedMotion } from "framer-motion";
+import { ActionLink } from "@/shared/ui/ActionLink";
 import {
   createRevealScaleVariants,
   createRevealVariants,
@@ -17,7 +17,7 @@ const FINAL_CTA_CONTENT = {
   primaryCtaLabel: "Ver proyectos",
   secondaryCtaLabel: "Hablar por WhatsApp",
   // Reuse existing placeholder format from Contact section until final number is defined.
-  whatsappHref: "https://wa.me/XXXXXXXXXXX",
+  whatsappHref: "https://wa.me/1132551333",
 } as const;
 
 export default function FinalCtaSection() {
@@ -76,20 +76,20 @@ export default function FinalCtaSection() {
           variants={actionsVariants}
           className="flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:gap-4 lg:max-w-none lg:flex-col lg:items-stretch"
         >
-          <Link
+          <ActionLink
             to="/projects"
-            className="inline-flex cursor-none items-center justify-center rounded-md border border-[#0075FF]/55 bg-[#0075FF] px-6 py-3.5 text-sm font-semibold tracking-[0.1em] text-white transition-all duration-300 hover:bg-[#0063D6] hover:shadow-[0_0_20px_rgba(0,117,255,0.24)]"
+            action="internal"
+            variant="primary"
           >
             {FINAL_CTA_CONTENT.primaryCtaLabel}
-          </Link>
-          <a
+          </ActionLink>
+          <ActionLink
             href={FINAL_CTA_CONTENT.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex cursor-none items-center justify-center rounded-md border border-white/22 bg-transparent px-6 py-3.5 text-sm font-semibold tracking-[0.1em] text-white/84 transition-colors duration-300 hover:border-[#0075FF]/52 hover:text-[#B8D8FF]"
+            action="whatsapp"
+            variant="secondary"
           >
             {FINAL_CTA_CONTENT.secondaryCtaLabel}
-          </a>
+          </ActionLink>
         </motion.div>
       </div>
     </section>

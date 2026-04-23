@@ -1,4 +1,4 @@
-import { useScroll, useTransform, MotionValue } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
 import { RefObject } from "react";
 
 export function useProjectAnimation(ref: RefObject<HTMLDivElement | null>) {
@@ -6,7 +6,7 @@ export function useProjectAnimation(ref: RefObject<HTMLDivElement | null>) {
         target: ref,
         offset: ["start end", "end start"],
     });
-    const yParallax = useTransform(parallaxProgress, [0, 1], ["-10%", "10%"]);
+    const yParallax = useTransform(parallaxProgress, [0, 1], [-10, 10]);
 
     const { scrollYProgress: entryProgress } = useScroll({
         target: ref,

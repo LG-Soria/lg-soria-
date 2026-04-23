@@ -18,10 +18,10 @@ export default function Navbar({
   title = "LG-Soria",
   items = [
     { label: "Inicio", href: "/" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#proyectos" },
+    { label: "Cómo trabajo", href: "#skills" },
+    { label: "Proyectos", href: "#proyectos" },
     { label: "Contacto", href: "#contacto" },
-    { label: "About", href: "/about" },
+    { label: "Sobre mí", href: "/about" },
   ],
   showContact = false,
   contactHref = "#contacto",

@@ -32,7 +32,7 @@
 .stretchy-nav-root.is-open .stretchy-nav-bg {
     transition-delay: 0s;
     /* Se expande inmediatamente al abrir */
-    height: 220px;
+    height: 270px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 

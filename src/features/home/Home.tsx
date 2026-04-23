@@ -1,7 +1,6 @@
-import { Link } from "react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import { LuArrowRight } from "@/shared/ui/icons";
+import { ActionLink } from "@/shared/ui/ActionLink";
 import { useProjectAnimation } from "@/features/projects/hooks/useProjectAnimation";
 import {
   createRevealScaleVariants,
@@ -23,7 +22,7 @@ const HERO_CONTENT = {
   },
   secondaryCta: {
     label: "Hablar por WhatsApp",
-    href: "https://wa.me/XXXXXXXXXXX",
+    href: "https://wa.me/1132551333",
   },
 };
 
@@ -87,22 +86,20 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={heroItemVariants} className="mt-7 flex flex-wrap items-center gap-6 md:mt-8 lg:mt-9">
-              <Link
+              <ActionLink
                 to={HERO_CONTENT.primaryCta.href}
-                className="group inline-flex cursor-none items-center justify-center gap-2 rounded-md border border-[#0075FF]/60 bg-[#0075FF] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-[#0063D6] hover:shadow-[0_0_22px_rgba(0,117,255,0.36)]"
+                action="internal"
+                variant="primary"
               >
                 {HERO_CONTENT.primaryCta.label}
-                <LuArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </Link>
-              <a
+              </ActionLink>
+              <ActionLink
                 href={HERO_CONTENT.secondaryCta.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative inline-flex cursor-none items-center text-sm font-medium tracking-wide text-white/72 transition-colors duration-300 hover:text-[#B8D8FF]"
+                action="whatsapp"
+                variant="secondary"
               >
                 {HERO_CONTENT.secondaryCta.label}
-                <span className="absolute -bottom-1 left-0 h-px w-full bg-white/30 transition-colors duration-300 group-hover:bg-[#0075FF]" />
-              </a>
+              </ActionLink>
             </motion.div>
           </div>
         </motion.div>
@@ -111,7 +108,7 @@ export default function Home() {
       <section
         ref={transitionRef}
         data-cursor="inversion"
-        className="relative -mt-6 w-full cursor-none pb-20 pt-0 md:-mt-8 md:pb-0"
+        className="relative -mt-6 w-full cursor-none pb-0 pt-0 md:-mt-8 md:pb-0"
       >
         <motion.div
           ref={transitionImageRef}

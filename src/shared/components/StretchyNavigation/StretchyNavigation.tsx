@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { HiHome, HiCode, HiBriefcase, HiMail } from "react-icons/hi";
+import { useState } from "react";
+import type { IconType } from "react-icons";
+import { HiHome, HiCode, HiBriefcase, HiMail, HiUser } from "react-icons/hi";
 import "./StretchyNavigation.css";
 
 type NavItem = { label: string; href?: string };
@@ -10,11 +11,16 @@ interface StretchyNavigationProps {
     onItemClick: (e: React.MouseEvent<HTMLAnchorElement>, href?: string) => void;
 }
 
-const ICON_MAP: Record<string, any> = {
+const ICON_MAP: Record<string, IconType> = {
     "Inicio": HiHome,
+    "CÃ³mo trabajo": HiCode,
+    "Cómo trabajo": HiCode,
     "Skills": HiCode,
     "Proyectos": HiBriefcase,
     "Contacto": HiMail,
+    "Sobre mÃ­": HiUser,
+    "Sobre mí": HiUser,
+    "About": HiUser,
 };
 
 export default function StretchyNavigation({ items, activeId, onItemClick }: StretchyNavigationProps) {
@@ -51,7 +57,8 @@ export default function StretchyNavigation({ items, activeId, onItemClick }: Str
             <ul className="stretchy-nav-items cursor-none">
                 {items.map((item, i) => {
                     const Icon = ICON_MAP[item.label] || HiHome;
-                    const isActive = getActiveToken(item.href) === activeId;
+                    const token = getActiveToken(item.href);
+                    const isActive = item.href === "/" ? activeId === "" : token === activeId;
 
                     return (
                         <li key={`${item.label}-${i} `}>

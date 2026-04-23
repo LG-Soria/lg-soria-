@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { BackgroundEffect } from "@/shared/components/BackgroundEffect/BackgroundEffect";
 import { BannerMarquee } from "@/shared/ui/BannerMarquee";
+import { ActionLink } from "@/shared/ui/ActionLink";
 import { TitleLink } from "@/shared/ui/TitleLink";
 import {
   createRevealVariants,
@@ -16,7 +17,7 @@ const CONTACT_CTA = {
   subtitle:
     "Si hay una idea, un producto o una oportunidad que valga la pena desarrollar, podemos conversarlo.",
   buttonLabel: "Hablar por WhatsApp",
-  buttonHref: "https://wa.me/XXXXXXXXXXX",
+  buttonHref: "https://wa.me/1132551333",
 };
 
 export default function Contact() {
@@ -66,14 +67,13 @@ export default function Contact() {
             {CONTACT_CTA.subtitle}
           </p>
           <div className="mt-6 md:mt-7 lg:mt-8">
-            <a
+            <ActionLink
               href={CONTACT_CTA.buttonHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex cursor-none items-center justify-center rounded-md border border-[#0075FF]/55 bg-[#0075FF] px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-[#0063D6] hover:shadow-[0_0_22px_rgba(0,117,255,0.32)]"
+              action="whatsapp"
+              variant="primary"
             >
               {CONTACT_CTA.buttonLabel}
-            </a>
+            </ActionLink>
           </div>
         </motion.div>
 
@@ -83,11 +83,10 @@ export default function Contact() {
               label="CURRICULUM"
               href="/Lucas_Soria_CV.pdf"
               download
+              action="download"
               align="left"
               lineWidth="w-[min(100%,32rem)]"
               color="white"
-              hoverGrow
-              hoverArrowDirection="down"
               arrowPosition="right"
             />
           </div>
@@ -96,31 +95,28 @@ export default function Contact() {
             <TitleLink
               label="LINKEDIN"
               href="https://www.linkedin.com/in/lucas-soria-g/"
+              action="external"
               align="right"
               lineWidth="w-[min(100%,20rem)]"
               color="white"
-              hoverGrow
-              hoverArrowDirection="up"
               arrowPosition="left"
             />
             <TitleLink
               label="GITHUB"
               href="https://github.com/LG-Soria"
+              action="external"
               align="right"
               lineWidth="w-[min(100%,20rem)]"
               color="white"
-              hoverGrow
-              hoverArrowDirection="up"
               arrowPosition="left"
             />
             <TitleLink
               label="EMAIL"
               href="mailto:lucasoria1996@gmail.com"
+              action="external"
               align="right"
               lineWidth="w-[min(100%,14rem)]"
               color="white"
-              hoverGrow
-              hoverArrowDirection="up"
               arrowPosition="left"
             />
           </div>

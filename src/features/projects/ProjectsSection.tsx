@@ -1,11 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import ProjectsList from "./ProjectsList";
 import { projects } from "./model/data";
+import { ActionLink } from "@/shared/ui/ActionLink";
 import {
     createRevealScaleVariants,
     createRevealVariants,
     createStaggerContainerVariants,
-    IN_VIEW_ONCE,
 } from "@/shared/lib/motion";
 
 const PROJECTS_PAGE_HEADER = {
@@ -17,8 +17,8 @@ const PROJECTS_PAGE_HEADER = {
 const PROJECTS_PAGE_CTA = {
     titleLineOne: "HABLEMOS DE TU",
     titleLineTwo: "PROXIMO PROYECTO",
-    primaryButtonLabel: "Iniciar conversacion",
-    primaryButtonHref: "https://wa.me/XXXXXXXXXXX",
+    primaryButtonLabel: "Iniciar conversación",
+    primaryButtonHref: "https://wa.me/1132551333",
     secondaryButtonLabel: "Descargar CV",
     secondaryButtonHref: "/Lucas_Soria_CV.pdf",
 };
@@ -79,8 +79,7 @@ export default function ProjectsSection() {
 
             <motion.div
                 initial="hidden"
-                whileInView="visible"
-                viewport={IN_VIEW_ONCE}
+                animate="visible"
                 variants={listVariants}
                 className="relative z-10 mx-auto mt-12 w-full max-w-8xl px-6 md:mt-14 md:px-10"
             >
@@ -107,23 +106,29 @@ export default function ProjectsSection() {
                         variants={ctaButtonsVariants}
                         className="mt-7 flex flex-wrap items-center gap-4"
                     >
-                        <motion.a
+                        <motion.div
                             variants={ctaButtonItemVariants}
-                            href={PROJECTS_PAGE_CTA.primaryButtonHref}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex cursor-none items-center justify-center rounded-sm border border-white/35 bg-transparent px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:border-[#0075FF]/60 hover:text-[#B8D8FF]"
                         >
-                            {PROJECTS_PAGE_CTA.primaryButtonLabel}
-                        </motion.a>
-                        <motion.a
+                            <ActionLink
+                                href={PROJECTS_PAGE_CTA.primaryButtonHref}
+                                action="whatsapp"
+                                variant="primary"
+                            >
+                                {PROJECTS_PAGE_CTA.primaryButtonLabel}
+                            </ActionLink>
+                        </motion.div>
+                        <motion.div
                             variants={ctaButtonItemVariants}
-                            href={PROJECTS_PAGE_CTA.secondaryButtonHref}
-                            download
-                            className="inline-flex cursor-none items-center justify-center rounded-sm border border-white/35 bg-transparent px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:border-[#0075FF]/60 hover:text-[#B8D8FF]"
                         >
-                            {PROJECTS_PAGE_CTA.secondaryButtonLabel}
-                        </motion.a>
+                            <ActionLink
+                                href={PROJECTS_PAGE_CTA.secondaryButtonHref}
+                                action="download"
+                                variant="secondary"
+                                download
+                            >
+                                {PROJECTS_PAGE_CTA.secondaryButtonLabel}
+                            </ActionLink>
+                        </motion.div>
                     </motion.div>
                 </div>
             </motion.div>

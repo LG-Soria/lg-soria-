@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FiArrowRight } from "@/shared/ui/icons";
 import { Project } from "@/shared/types";
 import { useProjectAnimation } from "./hooks/useProjectAnimation";
+import ProjectMediaGallery from "./ProjectMediaGallery";
 import {
     createRevealScaleVariants,
     createRevealVariants,
@@ -46,16 +47,22 @@ export default function ProjectItem({
     const containedGridClass = isFullReverse
         ? "md:grid-cols-[42%_58%]"
         : "md:grid-cols-[58%_42%]";
+    const projectImages =
+        project.images?.length
+            ? project.images
+            : project.image
+                ? [project.image]
+                : [];
 
     return (
         <motion.div
             ref={ref}
             style={{ opacity, y }}
             className={compact
-                ? `group relative grid h-auto w-full grid-cols-1 items-center gap-7 snap-start border-b border-white/8 py-10 last:border-b-0 ${compactGridClass} sm:gap-8 sm:py-11 md:gap-10 md:py-12 lg:gap-14 lg:py-16`
+                ? `group group/project relative grid h-auto w-full grid-cols-1 items-center gap-7 snap-start border-b border-white/8 py-10 last:border-b-0 ${compactGridClass} sm:gap-8 sm:py-11 md:gap-10 md:py-12 lg:gap-14 lg:py-16`
                 : isContained
-                    ? `group relative grid h-auto w-full grid-cols-1 items-center gap-7 snap-start border-b border-white/8 py-12 last:border-b-0 ${containedGridClass} md:gap-10 md:py-14 lg:gap-12 lg:py-16`
-                    : `group relative grid h-auto min-h-[auto] w-full grid-cols-1 items-center gap-8 snap-start border-b border-white/5 py-16 last:border-b-0 ${fullGridClass} md:h-screen md:min-h-screen md:gap-16 md:py-0`
+                    ? `group group/project relative grid h-auto w-full grid-cols-1 items-center gap-7 snap-start border-b border-white/8 py-12 last:border-b-0 ${containedGridClass} md:gap-10 md:py-14 lg:gap-12 lg:py-16`
+                    : `group group/project relative grid h-auto min-h-[auto] w-full grid-cols-1 items-center gap-8 snap-start border-b border-white/5 py-16 last:border-b-0 ${fullGridClass} md:h-screen md:min-h-screen md:gap-16 md:py-0`
             }
         >
             {/* Columna de Imagen */}
@@ -70,12 +77,10 @@ export default function ProjectItem({
                     ? `relative h-[40vh] w-full overflow-hidden rounded-lg border border-white/10 md:h-[52vh] lg:h-[60vh] ${isFullReverse ? "md:order-2" : "md:order-1"}`
                     : `relative h-[50vh] w-full overflow-hidden rounded-lg border border-white/10 md:h-[80vh] ${isFullReverse ? "md:order-2" : "md:order-1"}`
             }>
-                <motion.img
-                    style={{ y: yParallax, scale: 1.1 }}
-                    src={project.image}
+                <ProjectMediaGallery
+                    images={projectImages}
                     alt={project.title}
-                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-100 brightness-90"
-                    loading="lazy"
+                    parallaxY={yParallax}
                 />
             </motion.div>
 
@@ -182,17 +187,17 @@ export default function ProjectItem({
                     href={project.link}
                     target="_blank"
                     className={compact
-                        ? "group inline-flex items-center gap-2 text-[1.05rem] font-semibold text-white cursor-none"
+                        ? "group/link inline-flex items-center gap-2 text-[1.05rem] font-semibold text-white cursor-none"
                         : isContained
-                            ? "group inline-flex items-center gap-2 text-[0.98rem] font-semibold text-white cursor-none md:text-base"
-                            : "group inline-flex items-center gap-2 text-base font-semibold text-white cursor-none"
+                            ? "group/link inline-flex items-center gap-2 text-[0.98rem] font-semibold text-white cursor-none md:text-base"
+                            : "group/link inline-flex items-center gap-2 text-base font-semibold text-white cursor-none"
                     }
                 >
                     <span className="relative">
                         Ver Proyecto
-                        <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover/project:w-full"></span>
                     </span>
-                    <FiArrowRight className="h-5 w-5 text-blue-500 transition-transform duration-300 group-hover:translate-x-1" />
+                    <FiArrowRight className="h-5 w-5 text-blue-500 transition-transform duration-300 group-hover/project:translate-x-1 group-hover/link:-translate-y-[1px] group-hover/link:rotate-[-40deg]" />
                 </motion.a>
             </motion.div>
         </motion.div>

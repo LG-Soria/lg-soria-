@@ -1,7 +1,7 @@
-import { Link } from "react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import ProjectsList from "./ProjectsList";
 import { projects } from "./model/data";
+import { ActionLink } from "@/shared/ui/ActionLink";
 import {
     createRevealVariants,
     createStaggerContainerVariants,
@@ -58,12 +58,13 @@ export default function ProjectsPreview() {
             </motion.div>
 
             <motion.div variants={blockVariants} className="relative z-10 mx-auto mt-8 flex w-full max-w-7xl justify-center px-6 md:mt-10 md:px-10 lg:mt-12">
-                <Link
+                <ActionLink
                     to="/projects"
-                    className="inline-flex cursor-none items-center justify-center rounded-sm border border-white/35 bg-transparent px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:border-[#0075FF]/60 hover:text-[#B8D8FF]"
+                    action="internal"
+                    variant="secondary"
                 >
                     {PROJECTS_PREVIEW.ctaLabel}
-                </Link>
+                </ActionLink>
             </motion.div>
         </motion.section>
     );

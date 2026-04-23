@@ -8,6 +8,7 @@
 export {
     LuArrowRight,
     LuArrowDown,
+    LuArrowUpRight,
     LuCode,
     LuDatabase,
     LuGlobe,
@@ -22,7 +23,8 @@ export { FaLinkedinIn } from "react-icons/fa6";
 export {
     FaGithub,
     FaLinkedin,
-    FaEnvelope
+    FaEnvelope,
+    FaWhatsapp
 } from "react-icons/fa";
 
 // Feather Icons
