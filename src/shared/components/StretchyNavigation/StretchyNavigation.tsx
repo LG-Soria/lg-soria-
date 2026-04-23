@@ -29,6 +29,14 @@ export default function StretchyNavigation({ items, activeId, onItemClick }: Str
         onItemClick(e, href);
     };
 
+    const getActiveToken = (href?: string) => {
+        if (!href) return "";
+        if (href.startsWith("#")) return href.slice(1);
+        if (href.startsWith("/#")) return "/";
+        if (href.startsWith("/")) return href;
+        return "";
+    };
+
     return (
         <div className={`stretchy-nav-root  ${isOpen ? "is-open" : ""}`}>
             <button
@@ -43,8 +51,7 @@ export default function StretchyNavigation({ items, activeId, onItemClick }: Str
             <ul className="stretchy-nav-items cursor-none">
                 {items.map((item, i) => {
                     const Icon = ICON_MAP[item.label] || HiHome;
-                    const id = item.href?.startsWith("#") ? item.href.slice(1) : "";
-                    const isActive = id === activeId;
+                    const isActive = getActiveToken(item.href) === activeId;
 
                     return (
                         <li key={`${item.label}-${i} `}>

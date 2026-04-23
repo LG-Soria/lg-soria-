@@ -1,87 +1,131 @@
 import { useRef } from "react";
-import { BannerMarquee } from "../../shared/ui/BannerMarquee";
-import { TitleLink } from "../../shared/ui/TitleLink";
+import { motion, useReducedMotion } from "framer-motion";
 import { BackgroundEffect } from "@/shared/components/BackgroundEffect/BackgroundEffect";
-import { useGlobalMouse } from "@/shared/context/MouseContext";
+import { BannerMarquee } from "@/shared/ui/BannerMarquee";
+import { TitleLink } from "@/shared/ui/TitleLink";
+import {
+  createRevealVariants,
+  createStaggerContainerVariants,
+  IN_VIEW_ONCE,
+} from "@/shared/lib/motion";
 
-/**
- * Ejemplo de uso dentro de la sección de contacto con layout izquierda/derecha
- * acorde al boceto. En desktop se muestran en dos columnas.
- */
+const CONTACT_CTA = {
+  eyebrow: "DISPONIBLE PARA NUEVOS PROYECTOS",
+  titleLineOne: "CONSTRUYAMOS ALGO",
+  titleLineTwo: "CON IMPACTO REAL",
+  subtitle:
+    "Si hay una idea, un producto o una oportunidad que valga la pena desarrollar, podemos conversarlo.",
+  buttonLabel: "Hablar por WhatsApp",
+  buttonHref: "https://wa.me/XXXXXXXXXXX",
+};
+
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const sectionVariants = createStaggerContainerVariants(prefersReducedMotion, {
+    stagger: 0.08,
+    delayChildren: 0.05,
+  });
+  const blockVariants = createRevealVariants(prefersReducedMotion, { distance: 18 });
 
   return (
     <section
       ref={sectionRef}
       id="contacto"
       data-cursor="dot"
-      className="flex min-h-[80vh] overflow-visible flex-col gap-10 relative
-        pb-16 border-x"
+      className="relative flex flex-col overflow-visible border-x pb-8 md:pb-10 lg:min-h-[82vh] lg:pb-20"
     >
       <BackgroundEffect sectionRef={sectionRef} />
+
       <BannerMarquee
         text="CONTACTO"
         separator="•"
         speed={60}
         direction="left"
-        heightClass="h-36 z-40"
-        textClass="text-6xl md:text-7xl lg:text-8xl"
+        heightClass="h-24 z-40 sm:h-28 md:h-32 lg:h-36"
+        textClass="text-4xl sm:text-5xl md:text-6xl lg:text-8xl"
         bgClass="bg-white"
         colorClass="text-black"
       />
 
-      {/* Grid dos columnas - En desktop ocupa más ancho para estar en los laterales */}
-      <div className="grid w-full grid-cols-1 mt-16 gap-14 md:grid-cols-2 md:gap-16 px-6 md:px-20 lg:px-32 xl:px-40">
-        {/* Izquierda: CURRICULUM con flecha a la derecha y crecimiento de línea */}
-        <div className="flex items-start justify-start">
-          <TitleLink
-            label="CURRICULUM"
-            href="/Lucas_Soria_CV.pdf"
-            download
-            align="left"
-            lineWidth="w-[min(100%,32rem)]"
-            color="white"
-            hoverGrow
-            hoverArrowDirection="down"
-            arrowPosition="right"
-          />
-        </div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={IN_VIEW_ONCE}
+        variants={sectionVariants}
+      >
+        <motion.div variants={blockVariants} className="relative z-10 mx-auto mt-10 w-full max-w-4xl px-6 text-center md:mt-12 md:px-10 lg:mt-16">
+          <p className="font-mono text-xs tracking-[0.22em] text-[#0075FF] md:text-sm">
+            {CONTACT_CTA.eyebrow}
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-white md:mt-4 md:text-5xl">
+            <span className="block">{CONTACT_CTA.titleLineOne}</span>
+            <span className="block">{CONTACT_CTA.titleLineTwo}</span>
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-white/68 md:text-base">
+            {CONTACT_CTA.subtitle}
+          </p>
+          <div className="mt-6 md:mt-7 lg:mt-8">
+            <a
+              href={CONTACT_CTA.buttonHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex cursor-none items-center justify-center rounded-md border border-[#0075FF]/55 bg-[#0075FF] px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-[#0063D6] hover:shadow-[0_0_22px_rgba(0,117,255,0.32)]"
+            >
+              {CONTACT_CTA.buttonLabel}
+            </a>
+          </div>
+        </motion.div>
 
-        {/* Derecha: otros enlaces, subrayado más corto que texto, flecha al lado izquierdo */}
-        <div className="flex flex-col items-end space-y-8">
-          <TitleLink
-            label="LINKEDIN"
-            href="https://www.linkedin.com/in/lucas-soria-g/"
-            align="right"
-            lineWidth="w-[min(100%,20rem)]"
-            color="white"
-            hoverGrow
-            hoverArrowDirection="up"
-            arrowPosition="left"
-          />
-          <TitleLink
-            label="GITHUB"
-            href="https://github.com/LG-Soria"
-            align="right"
-            lineWidth="w-[min(100%,20rem)]"
-            color="white"
-            hoverGrow
-            hoverArrowDirection="up"
-            arrowPosition="left"
-          />
-          <TitleLink
-            label="EMAIL"
-            href="mailto:lucasoria1996@gmail.com"
-            align="right"
-            lineWidth="w-[min(100%,14rem)]"
-            color="white"
-            hoverGrow
-            hoverArrowDirection="up"
-            arrowPosition="left"
-          />
-        </div>
-      </div>
+        <motion.div variants={blockVariants} className="relative z-10 mt-12 grid w-full grid-cols-1 gap-10 px-6 md:mt-14 md:grid-cols-2 md:gap-12 md:px-12 lg:mt-20 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:px-20 xl:gap-16 xl:px-40">
+          <div className="min-w-0 flex items-start justify-start">
+            <TitleLink
+              label="CURRICULUM"
+              href="/Lucas_Soria_CV.pdf"
+              download
+              align="left"
+              lineWidth="w-[min(100%,32rem)]"
+              color="white"
+              hoverGrow
+              hoverArrowDirection="down"
+              arrowPosition="right"
+            />
+          </div>
+
+          <div className="min-w-0 flex flex-col items-end space-y-6 md:space-y-7 lg:space-y-8">
+            <TitleLink
+              label="LINKEDIN"
+              href="https://www.linkedin.com/in/lucas-soria-g/"
+              align="right"
+              lineWidth="w-[min(100%,20rem)]"
+              color="white"
+              hoverGrow
+              hoverArrowDirection="up"
+              arrowPosition="left"
+            />
+            <TitleLink
+              label="GITHUB"
+              href="https://github.com/LG-Soria"
+              align="right"
+              lineWidth="w-[min(100%,20rem)]"
+              color="white"
+              hoverGrow
+              hoverArrowDirection="up"
+              arrowPosition="left"
+            />
+            <TitleLink
+              label="EMAIL"
+              href="mailto:lucasoria1996@gmail.com"
+              align="right"
+              lineWidth="w-[min(100%,14rem)]"
+              color="white"
+              hoverGrow
+              hoverArrowDirection="up"
+              arrowPosition="left"
+            />
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

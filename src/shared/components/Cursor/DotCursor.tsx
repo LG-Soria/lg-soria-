@@ -10,7 +10,7 @@ export const DotCursor = () => {
 
     const isVisible = isOverNavbar || cursorType === 'dot';
 
-    const springConfig = { damping: 25, stiffness: 200 };
+    const springConfig = { damping: 15, stiffness: 180 };
     const cursorX = useSpring(globalMouseX, springConfig);
     const cursorY = useSpring(globalMouseY, springConfig);
 

@@ -9,7 +9,7 @@ export const InversionCursor = () => {
 
     const isVisible = cursorType === 'inversion' && !isOverNavbar;
 
-    const springConfig = { damping: 25, stiffness: 150 };
+    const springConfig = { damping: 15, stiffness: 150 };
     const cursorX = useSpring(globalMouseX, springConfig);
     const cursorY = useSpring(globalMouseY, springConfig);
 

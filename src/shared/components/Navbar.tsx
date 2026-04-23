@@ -1,5 +1,6 @@
-import { motion, AnimatePresence } from "motion/react";
+﻿import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useGlobalMouse } from "@/shared/context/MouseContext";
 import StretchyNavigation from "./StretchyNavigation/StretchyNavigation";
 
@@ -9,53 +10,86 @@ interface NavbarProps {
   title?: string;
   items?: NavItem[];
   showContact?: boolean;
-  /** ID/href de la sección de contacto (debe existir en el DOM). */
   contactHref?: `#${string}`;
-  /** Offset extra para el scroll suave (además de la altura del header). */
   offset?: number;
 }
 
 export default function Navbar({
   title = "LG-Soria",
   items = [
-    { label: "Inicio", href: "#inicio" },
+    { label: "Inicio", href: "/" },
     { label: "Skills", href: "#skills" },
-    { label: "Proyectos", href: "#proyectos" },
+    { label: "Projects", href: "#proyectos" },
+    { label: "Contacto", href: "#contacto" },
+    { label: "About", href: "/about" },
   ],
-  showContact = true,
+  showContact = false,
   contactHref = "#contacto",
   offset = 0,
 }: NavbarProps) {
+  const { pathname, hash } = useLocation();
+  const navigate = useNavigate();
+  const isHomeRoute = pathname === "/";
+
   const [activeId, setActiveId] = useState<string>("");
   const [isScrolled, setIsScrolled] = useState(false);
-  const [borderProgress, setBorderProgress] = useState(0); // 0 = borde completo, 1 = desaparecido
+  const [borderProgress, setBorderProgress] = useState(0);
   const headerRef = useRef<HTMLElement | null>(null);
   const { setIsOverNavbar } = useGlobalMouse();
 
-  // Lista final de ítems (se agrega "Contacto" si corresponde y no está duplicado)
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const headerH = headerRef.current?.offsetHeight ?? 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - (headerH + offset);
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const getRouteFromHref = (href?: string) => {
+    if (!href) return "";
+    if (href.startsWith("#") || href.startsWith("/#")) return "/";
+    if (href.startsWith("/")) return href;
+    return "";
+  };
+
   const navItems = useMemo(() => {
     const contactId = contactHref.startsWith("#")
       ? contactHref.slice(1)
       : contactHref;
+
     const hasContactAlready = items.some(
       (i) => (i.href?.startsWith("#") ? i.href.slice(1) : i.href) === contactId,
     );
+
     if (!showContact || hasContactAlready) return items;
     return [...items, { label: "Contacto", href: contactHref }];
   }, [items, showContact, contactHref]);
 
-  // IDs de secciones para el scrollspy
   const sectionIds = useMemo(
     () =>
-      navItems
-        .map((i) => (i.href?.startsWith("#") ? i.href.slice(1) : null))
-        .filter(Boolean) as string[],
-    [navItems],
+      (isHomeRoute
+        ? navItems
+            .map((i) => (i.href?.startsWith("#") ? i.href.slice(1) : null))
+            .filter(Boolean)
+        : []) as string[],
+    [navItems, isHomeRoute],
   );
 
-  // Efecto del borde superior al scrollear
+  const isItemActive = (href?: string) => {
+    if (isHomeRoute) {
+      if (href === "/") return activeId === "";
+
+      const id = href?.startsWith("#") ? href.slice(1) : "";
+      return Boolean(id && activeId === id);
+    }
+
+    const route = getRouteFromHref(href);
+    return Boolean(route && route === pathname);
+  };
+
   useEffect(() => {
-    const MAX = 120; // distancia de scroll para completar el efecto
+    const MAX = 120;
 
     const onScroll = () => {
       const y = window.scrollY || 0;
@@ -69,15 +103,15 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scrollspy
   useEffect(() => {
-    if (!sectionIds.length) return;
+    if (!isHomeRoute || !sectionIds.length) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
         if (visible?.target?.id) setActiveId(visible.target.id);
       },
       {
@@ -90,34 +124,76 @@ export default function Navbar({
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter(Boolean) as Element[];
+
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [sectionIds]);
+  }, [isHomeRoute, sectionIds]);
 
-  // Scroll suave con compensación por altura del header + offset extra
+  useEffect(() => {
+    if (!isHomeRoute) setActiveId(pathname);
+  }, [isHomeRoute, pathname]);
+
+  useEffect(() => {
+    if (!isHomeRoute || !hash.startsWith("#")) return;
+
+    const id = hash.slice(1);
+    requestAnimationFrame(() => {
+      scrollToSection(id);
+      setActiveId(id);
+    });
+  }, [isHomeRoute, hash, offset]);
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href?: string,
   ) => {
-    if (!href || !href.startsWith("#")) return;
-    e.preventDefault();
+    if (!href) return;
+    if (href === "/") {
+      e.preventDefault();
 
-    const id = href.slice(1);
-    const el = document.getElementById(id);
-    if (!el) return;
+      if (!isHomeRoute) {
+        navigate("/");
+        return;
+      }
 
-    const headerH = headerRef.current?.offsetHeight ?? 0;
+      setActiveId("");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
-    const top =
-      el.getBoundingClientRect().top + window.scrollY - (headerH + offset);
+    if (href.startsWith("#")) {
+      e.preventDefault();
 
-    window.scrollTo({ top, behavior: "smooth" });
+      if (!isHomeRoute) {
+        navigate(`/${href}`);
+        return;
+      }
+
+      scrollToSection(href.slice(1));
+      return;
+    }
+
+    if (href.startsWith("/#")) {
+      e.preventDefault();
+
+      if (isHomeRoute) {
+        navigate(href, { replace: true });
+        return;
+      }
+
+      navigate(href);
+      return;
+    }
+
+    if (href.startsWith("/")) {
+      e.preventDefault();
+      if (pathname !== href) navigate(href);
+    }
   };
 
-  // Cálculo visual del borde: se usa una capa absoluta que escala en X y desvanece
-  const borderScale = 1 - borderProgress; // 1 → completo, 0 → desaparecido
-  const borderOpacity = borderScale; // opacidad vinculada a la escala
+  const borderScale = 1 - borderProgress;
+  const borderOpacity = borderScale;
 
   return (
     <header
@@ -131,7 +207,6 @@ export default function Navbar({
           : "bg-transparent shadow-none",
       ].join(" ")}
     >
-      {/* Borde animado: blanco, se contrae hacia el centro y desvanece */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white"
@@ -144,7 +219,6 @@ export default function Navbar({
       />
 
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        {/* Logo con cross-fade pro */}
         <div className="relative h-8 w-28">
           <AnimatePresence mode="wait" initial={false}>
             {!isScrolled ? (
@@ -176,8 +250,7 @@ export default function Navbar({
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-6">
             {navItems.map((item, i) => {
-              const id = item.href?.startsWith("#") ? item.href.slice(1) : "";
-              const isActive = id && activeId === id;
+              const isActive = isItemActive(item.href);
 
               return (
                 <li key={`${item.label}-${i}`}>
@@ -211,5 +284,4 @@ export default function Navbar({
       </div>
     </header>
   );
-
 }

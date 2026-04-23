@@ -87,7 +87,7 @@ export function TitleLink({
                 <span
                     className={clsx(
                         "font-semibold tracking-wide",
-                        "text-3xl md:text-5xl lg:text-7xl",
+                        "text-3xl md:text-5xl lg:text-6xl xl:text-7xl",
                     )}
                 >
                     {label}
