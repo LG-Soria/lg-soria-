@@ -80,7 +80,7 @@ export const projects: Project[] = [
     description:
       "Aplicación con Next.js de seguimiento de empleos con panel de administración, gestión de datos con PostgreSQL y backend con Nest.js.",
     image: "/proyectos/proyecto_4.png",
-    images: ["/proyectos/proyecto_4.png", "/proyectos/proyecto_3.png"],
+    images: ["/proyectos/proyecto_4.png",],
     stack: ["Next.js", "PostgreSQL", "Nest.js", "TailwindCSS", "JWT"],
     link: "https://jobtracker-lake.vercel.app/",
   },
@@ -90,27 +90,18 @@ export const projects: Project[] = [
     description:
       "Landing page para una empresa de alquiler de filtros y dispensers con Next.js, TailwindCSS y Framer Motion.",
     image: "/proyectos/proyecto_3.png",
-    images: ["/proyectos/proyecto_3.png", "/proyectos/proyecto_2.png"],
+    images: ["/proyectos/proyecto_2.png", "/proyectos/proyecto_3.png"],
     stack: ["Vite.js", "TailwindCSS", "Framer Motion"],
     link: "https://aqua-maria-landing.vercel.app/",
   },
-  {
-    id: 3,
-    title: "Senti Pilates, Agenda Virtual - App Web",
-    description:
-      "Panel de gestión de clases para gimnasio con organización de horarios y control de asistencia.",
-    image: "/proyectos/proyecto_2.png",
-    images: ["/proyectos/proyecto_2.png", "/proyectos/proyecto_1.png"],
-    stack: ["Next.js", "TailwindCSS", "Framer Motion"],
-    link: "https://senti-pilates.vercel.app/",
-  },
+
   {
     id: 4,
     title: "Locas Puntadas - Ecommerce",
     description:
       "Tienda personalizada para emprendimiento artesanal con diseño enfocado en fidelidad de marca.",
     image: "/proyectos/proyecto_1.png",
-    images: ["/proyectos/proyecto_1.png", "/proyectos/proyecto_4.png"],
+    images: ["/proyectos/proyecto_1.png", "/proyectos/proyecto_5.png", "/proyectos/proyecto_6.png", "/proyectos/proyecto_7.png"],
     stack: ["Next.js", "TailwindCSS", "Framer Motion"],
     link: "https://locaspuntadas-ecommerce.vercel.app/",
   },

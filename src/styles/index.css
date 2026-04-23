@@ -48,3 +48,15 @@ body {
 .portfolio-font-test :is(h1, h2, h3) {
     font-family: "Space Grotesk", "Manrope", "Inter", "Segoe UI", sans-serif;
 }
+
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
+    body {
+        cursor: auto !important;
+    }
+
+    .cursor-none,
+    .stretchy-nav-trigger,
+    .stretchy-nav-items {
+        cursor: auto !important;
+    }
+}

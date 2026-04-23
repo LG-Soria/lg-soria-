@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Navbar from "@/shared/components/Navbar";
 import Footer from "@/shared/components/Footer";
 import { MouseProvider } from "@/shared/context/MouseContext";
@@ -8,8 +8,28 @@ import { DotCursor } from "@/shared/components/Cursor/DotCursor";
 
 export default function SiteLayout() {
   const { pathname, hash } = useLocation();
+  const [isTouchOrSmallViewport, setIsTouchOrSmallViewport] = useState(false);
   const isFontTestRoute =
     pathname === "/" || pathname === "/about" || pathname === "/projects";
+
+  useEffect(() => {
+    const queries = [
+      window.matchMedia("(max-width: 1024px)"),
+      window.matchMedia("(hover: none)"),
+      window.matchMedia("(pointer: coarse)"),
+    ];
+
+    const updateCursorMode = () => {
+      setIsTouchOrSmallViewport(queries.some((query) => query.matches));
+    };
+
+    updateCursorMode();
+    queries.forEach((query) => query.addEventListener("change", updateCursorMode));
+
+    return () => {
+      queries.forEach((query) => query.removeEventListener("change", updateCursorMode));
+    };
+  }, []);
 
   useLayoutEffect(() => {
     if (hash) return;
@@ -29,8 +49,12 @@ export default function SiteLayout() {
       <div
         className={`relative min-h-screen w-full bg-black text-white selection:bg-[#0075FF]/30 ${isFontTestRoute ? "portfolio-font-test" : ""}`}
       >
-        <InversionCursor />
-        <DotCursor />
+        {!isTouchOrSmallViewport && (
+          <>
+            <InversionCursor />
+            <DotCursor />
+          </>
+        )}
 
         <Navbar
           key={pathname}
