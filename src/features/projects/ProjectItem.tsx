@@ -45,8 +45,8 @@ export default function ProjectItem({
         ? "md:grid-cols-[40%_60%]"
         : "md:grid-cols-[60%_40%]";
     const containedGridClass = isFullReverse
-        ? "md:grid-cols-[42%_58%]"
-        : "md:grid-cols-[58%_42%]";
+        ? "md:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]"
+        : "md:grid-cols-[minmax(0,1.18fr)_minmax(0,0.82fr)]";
     const projectImages =
         project.images?.length
             ? project.images
@@ -74,7 +74,7 @@ export default function ProjectItem({
                 className={compact
                 ? `relative min-w-0 h-[34vh] w-full overflow-hidden rounded-lg border border-white/12 sm:h-[38vh] md:h-[42vh] lg:h-[66vh] ${isCompactReverse ? "md:order-2" : "md:order-1"}`
                 : isContained
-                    ? `relative h-[40vh] w-full overflow-hidden rounded-lg border border-white/10 md:h-[52vh] lg:h-[60vh] ${isFullReverse ? "md:order-2" : "md:order-1"}`
+                    ? `relative min-w-0 h-[40vh] w-full overflow-hidden rounded-lg border border-white/10 md:h-[52vh] lg:h-[60vh] ${isFullReverse ? "md:order-2" : "md:order-1"}`
                     : `relative h-[50vh] w-full overflow-hidden rounded-lg border border-white/10 md:h-[80vh] ${isFullReverse ? "md:order-2" : "md:order-1"}`
             }>
                 <ProjectMediaGallery
@@ -93,7 +93,7 @@ export default function ProjectItem({
                 className={compact
                 ? `min-w-0 flex flex-col justify-center px-1 md:px-0 md:py-4 ${isCompactReverse ? "md:order-1" : "md:order-2"}`
                 : isContained
-                    ? `flex flex-col justify-center px-2 md:px-0 md:py-6 lg:py-8 ${isFullReverse ? "md:order-1" : "md:order-2"}`
+                    ? `min-w-0 flex flex-col justify-center px-2 md:px-0 md:py-6 lg:py-8 ${isFullReverse ? "md:order-1" : "md:order-2"}`
                     : `flex flex-col justify-center px-6 md:px-0 md:py-12 ${isFullReverse ? "md:order-1" : "md:order-2"}`
             }>
                 <motion.div

@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ActionLink } from "@/shared/ui/ActionLink";
+import { WHATSAPP_HREF } from "@/shared/config/contact";
 import {
   createRevealScaleVariants,
   createRevealVariants,
@@ -16,8 +17,7 @@ const FINAL_CTA_CONTENT = {
     "Si buscas claridad, criterio y una implementacion bien pensada, podemos conversar sobre lo que sigue.",
   primaryCtaLabel: "Ver proyectos",
   secondaryCtaLabel: "Hablar por WhatsApp",
-  // Reuse existing placeholder format from Contact section until final number is defined.
-  whatsappHref: "https://wa.me/1132551333",
+  whatsappHref: WHATSAPP_HREF,
 } as const;
 
 export default function FinalCtaSection() {

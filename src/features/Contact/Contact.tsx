@@ -4,6 +4,7 @@ import { BackgroundEffect } from "@/shared/components/BackgroundEffect/Backgroun
 import { BannerMarquee } from "@/shared/ui/BannerMarquee";
 import { ActionLink } from "@/shared/ui/ActionLink";
 import { TitleLink } from "@/shared/ui/TitleLink";
+import { WHATSAPP_HREF } from "@/shared/config/contact";
 import {
   createRevealVariants,
   createStaggerContainerVariants,
@@ -17,7 +18,7 @@ const CONTACT_CTA = {
   subtitle:
     "Si hay una idea, un producto o una oportunidad que valga la pena desarrollar, podemos conversarlo.",
   buttonLabel: "Hablar por WhatsApp",
-  buttonHref: "https://wa.me/1132551333",
+  buttonHref: WHATSAPP_HREF,
 };
 
 export default function Contact() {

@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import ProjectsList from "./ProjectsList";
 import { projects } from "./model/data";
 import { ActionLink } from "@/shared/ui/ActionLink";
+import { WHATSAPP_HREF } from "@/shared/config/contact";
 import {
     createRevealScaleVariants,
     createRevealVariants,
@@ -18,7 +19,7 @@ const PROJECTS_PAGE_CTA = {
     titleLineOne: "HABLEMOS DE TU",
     titleLineTwo: "PROXIMO PROYECTO",
     primaryButtonLabel: "Iniciar conversación",
-    primaryButtonHref: "https://wa.me/1132551333",
+    primaryButtonHref: WHATSAPP_HREF,
     secondaryButtonLabel: "Descargar CV",
     secondaryButtonHref: "/Lucas_Soria_CV.pdf",
 };

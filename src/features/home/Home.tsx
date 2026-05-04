@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { ActionLink } from "@/shared/ui/ActionLink";
+import { WHATSAPP_HREF } from "@/shared/config/contact";
 import { useProjectAnimation } from "@/features/projects/hooks/useProjectAnimation";
 import {
   createRevealScaleVariants,
@@ -22,7 +23,7 @@ const HERO_CONTENT = {
   },
   secondaryCta: {
     label: "Hablar por WhatsApp",
-    href: "https://wa.me/1132551333",
+    href: WHATSAPP_HREF,
   },
 };
 

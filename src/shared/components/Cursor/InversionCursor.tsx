@@ -9,7 +9,7 @@ export const InversionCursor = () => {
 
     const isVisible = cursorType === 'inversion' && !isOverNavbar;
 
-    const springConfig = { damping: 15, stiffness: 150 };
+    const springConfig = { damping: 35, stiffness: 490 };
     const cursorX = useSpring(globalMouseX, springConfig);
     const cursorY = useSpring(globalMouseY, springConfig);
 
@@ -22,6 +22,7 @@ export const InversionCursor = () => {
 
     const velocityScale = useTransform(combinedVelocity, [0, 3000], [1, 1.3]);
     const smoothScale = useSpring(velocityScale, { damping: 20, stiffness: 100 });
+    const revealScale = useMotionValue(0.35);
 
     // Boundary-based scale (Dynamic calculation based on live rect)
     const boundaryScale = useTransform(
@@ -50,9 +51,25 @@ export const InversionCursor = () => {
 
     // Dynamic scale combining velocity, interaction, and boundaries
     const finalScale = useTransform(
-        [smoothScale, interactionScale, boundaryScale],
-        ([v, i, b]) => (v as number) * (i as number) * (b as number)
+        [smoothScale, interactionScale, boundaryScale, revealScale],
+        ([v, i, b, r]) => (v as number) * (i as number) * (b as number) * (r as number)
     );
+
+    useEffect(() => {
+        if (!isVisible) {
+            revealScale.set(0.35);
+            return;
+        }
+
+        revealScale.set(0.35);
+  const controls = animate(revealScale, 1, {
+    delay: 0.82,
+    duration: 1.75,
+    ease: [0.22, 1, 0.36, 1],
+});
+
+        return () => controls.stop();
+    }, [isVisible, revealScale]);
 
     useEffect(() => {
         const targetValue = isPressed ? 0.8 : overClickable ? 1.4 : 1;
@@ -96,8 +113,8 @@ export const InversionCursor = () => {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{
                         opacity: 1,
-                        width: overClickable ? '6rem' : '8rem', // w-24 : w-32
-                        height: overClickable ? '6rem' : '8rem', // h-24 : h-32
+                        width: overClickable ? '3rem' : '8rem',
+                        height: overClickable ? '3rem' : '8rem',
                         boxShadow: overClickable
                             ? '0 0 20px rgba(14, 165, 233, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.4)'
                             : '0 0 0px rgba(0,0,0,0)',
